@@ -45,7 +45,6 @@ public class diceJobSearch {
         System.out.println("Title is failed");
         System.out.println("expectedTitle "+expectedTitle);
         System.out.println("Actual Title "+actualTitle);
-        System.out.println("  ads");
     }
 
     driver.findElement(By.xpath("//input[@chkval='Houston, TX']")).click();
