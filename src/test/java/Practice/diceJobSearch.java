@@ -45,15 +45,13 @@ public class diceJobSearch {
         System.out.println("Title is failed");
         System.out.println("expectedTitle "+expectedTitle);
         System.out.println("Actual Title "+actualTitle);
+        System.out.println("  ads");
     }
 
-    Thread.sleep(3000);
-
-
-        driver.findElement(By.xpath("//input[@chkval='Houston, TX']")).click();
+    driver.findElement(By.xpath("//input[@chkval='Houston, TX']")).click();
 
         String foundJobs=driver.findElement(By.id("posiCountId")).getText();
-        System.out.println("Found Jobs "+foundJobs+ "for "+jobs.get(0)+" in 77084 Houston TX");
+        System.out.println("Found Jobs "+foundJobs+ "for "+jobs.get(0)+" in 77084 Houston");
     }
 
 }
