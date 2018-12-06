@@ -3,6 +3,7 @@ package Practice;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -25,32 +26,54 @@ public class diceJobSearch {
         String url="https://www.dice.com/";
         driver.get(url);
 
-        String searchField="search-field-keyword";
-        String location="search-field-location";
+        String expectedTitle="Find Jobs in Tech";
+        String actualTitle=driver.getTitle();
+        if(actualTitle.contains(expectedTitle))
+            System.out.println("Title test is passed");
+        else
+        {
+            System.out.println("Title is failed");
+            System.out.println("expectedTitle "+expectedTitle);
+            System.out.println("Actual Title "+actualTitle);
+        }
+        String searchField="job";
+        String location="location";
 
-        ArrayList<String>jobs=new ArrayList<String>();
-        jobs.add("Automation Engineer");
-        driver.findElement(By.id(searchField)).sendKeys(jobs.get(0));
-        driver.findElement(By.id(location)).sendKeys("77084");
-        driver.findElement(By.id(location)).clear();
-        driver.findElement(By.id(location)).sendKeys("77084");
-
+        ArrayList<String>searchItems=new ArrayList<String>();
+        searchItems.add("Automation Engineer");
+       searchItems.add("Java developer");
+        searchItems.add("Selenium");
+        searchItems.add("C#");
+        searchItems.add("Cucumber");
+        searchItems.add("Tester");
+        searchItems.add("Designer");
         driver.findElement(By.id("findTechJobs")).click();
-    String expectedTitle=jobs.get(0);
-    String actualTitle=driver.getTitle();
-    if(actualTitle.contains(expectedTitle))
-        System.out.println("Title test is passed");
-    else
-    {
-        System.out.println("Title is failed");
-        System.out.println("expectedTitle "+expectedTitle);
-        System.out.println("Actual Title "+actualTitle);
-    }
 
-    driver.findElement(By.xpath("//input[@chkval='Houston, TX']")).click();
+        WebElement searchButton=(driver.findElement(By.xpath("//input[@value='Find Tech Jobs']")));
 
-        String foundJobs=driver.findElement(By.id("posiCountId")).getText();
-        System.out.println("Found Jobs "+foundJobs+ "for "+jobs.get(0)+" in 77084 Houston");
+        driver.findElement(By.id(location)).clear();
+        driver.findElement(By.id(location)).sendKeys("TX");
+        for(int i=0;i<searchItems.size();i++)
+        {
+            driver.findElement(By.id(searchField)).clear();
+           // driver.findElement(By.id(location)).clear();
+            //Thread.sleep(2000);
+            driver.findElement(By.id(searchField)).sendKeys(searchItems.get(i));
+            driver.findElement(By.xpath("//input[@value='Find Tech Jobs']")).click();
+            String foundJobs=driver.findElement(By.id("posiCountId")).getText();
+            String renew=searchItems.get(i)+"----"+foundJobs;
+            searchItems.set(i,renew);
+
+
+        }
+        //driver.findElement(By.id(searchField)).sendKeys(searchItems.get(0));
+
+       // driver.findElement(By.id(location)).clear();
+
+
+     //   driver.findElement(By.id("findTechJobs")).click();
+
+        System.out.println(searchItems+"/n");
     }
 
 }
